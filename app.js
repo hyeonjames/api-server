@@ -5,6 +5,9 @@ const session = require('express-session');
 const bodyParser = require('body-parser');
 const mong = require('mongoose');
 const app = express();
+const redis = require('redis');
+const redisStore = require('connect-redis')(session);
+const redisClient = redis.createClient();
 
 mong.connect('mongodb://localhost/codeweb', function (err) {
     app.listen(3021);
@@ -15,6 +18,11 @@ app.use(bodyParser.json());
 app.use(session({
     secret: 'codeweb',
     resave: false,
+    store: new redisStore({
+        host : 'localhost',
+        port : 6379,
+        client : redisClient
+    }),
     saveUninitialized: true
 }))
 const routes = {
