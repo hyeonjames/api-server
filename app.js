@@ -13,8 +13,6 @@ const cors = require('cors');
 mong.connect('mongodb://localhost/codeweb', function (err) {
     app.listen(3021);
 });
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
 app.use((req,res,next)=>{
     console.log(11);
     res.setHeader('Access-Control-Allow-Origin','*');
@@ -22,6 +20,8 @@ app.use((req,res,next)=>{
     res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept")
     next();
 });
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 app.use(session({
     secret: 'codeweb',
     resave: false,
