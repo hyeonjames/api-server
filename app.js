@@ -15,9 +15,12 @@ mong.connect('mongodb://localhost/codeweb', function (err) {
 });
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(cors({
-    origin : /code404\.co\.kr$/
-}));
+app.use((req,res,next)=>{
+    res.setHeader('Access-Control-Allow-Origin','*');
+    res.setHeader('Access-Control-Request-Method','GET,POST,PUT,DELETE');
+    res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept")
+    next();
+});
 app.use(session({
     secret: 'codeweb',
     resave: false,
