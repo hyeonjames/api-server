@@ -3,11 +3,15 @@ const $m = require('mongoose');
 const autoIncrement = require('mongoose-sequence')
 const Session = require('../session.js');
 const error = require('../error.js');
+const process = require('process');
 const nodemailer = require('nodemailer');
 let {Email,Password,encPwd} = require('../validate.js');
 
-
-let transporter = nodemailer.createTransport('smtp://localhost')
+let transporter = nodemailer.createTransport({
+    host : 'localhost',
+    port : 25,
+    secure : false
+})
 
 let randomCode = [];
 for(var i=0;i<26;i++) {
