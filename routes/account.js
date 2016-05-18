@@ -89,7 +89,7 @@ module.exports = (router, app) => {
                                 html : `<p>code404에 가입하신것을 축하합니다.<br/>계정인증은 <b>http://code404.co.kr/#/auth/${acc.acc_no}/${acc.registCode}</b> 에서 하실수 있습니다.</p>`
                             },(err,info)=>{
                                 if(err){
-                                    
+                                    console.log(err);
                                 } else {
                                     
                                     res.send('1');
