@@ -7,7 +7,7 @@ const nodemailer = require('nodemailer');
 let {Email,Password,encPwd} = require('../validate.js');
 
 
-let transporter = nodemailer.createTransport('smtps://tmdgus0118%40gmail.com:upmg38149404@smtp.gmail.com')
+let transporter = nodemailer.createTransport('smtp://donotreply%40code404.co.kr@localhost')
 
 let randomCode = [];
 for(var i=0;i<26;i++) {
@@ -83,10 +83,10 @@ module.exports = (router, app) => {
                                 return;
                             }
                             transporter.sendMail({
-                                from : 'Code404',
+                                from : 'donotreply@code404.co.kr',
                                 to : req.body.email,
                                 subject : 'Welcome to Code404',
-                                html : `<p>code404에 가입하신것을 축하합니다.<br/>계정인증은 <b>http://code404.co.kr/accounts/auth/${acc.acc_no}/${acc.registCode}</b> 에서 하실수 있습니다.</p>`
+                                html : `<p>code404에 가입하신것을 축하합니다.<br/>계정인증은 <b>http://code404.co.kr/#/auth/${acc.acc_no}/${acc.registCode}</b> 에서 하실수 있습니다.</p>`
                             },(err,info)=>{
                                 if(err){
                                     
@@ -103,7 +103,7 @@ module.exports = (router, app) => {
             })
         }
     });
-    app.get('/accounts/auth/:accNo/:code',(req,res)=>{
+    router.get('/auth/:accNo/:code',(req,res)=>{
         Account.findOne({
             acc_no : Number(req.params.accNo),
             registCode : req.params.code,
@@ -113,7 +113,7 @@ module.exports = (router, app) => {
                 
             } else {
                 if(!row){
-                    res.render('auth',{
+                    res.send({
                         verified : false
                     });
                 } else {
@@ -122,7 +122,7 @@ module.exports = (router, app) => {
                         if(err){
                             
                         } else {
-                            res.render('auth',{
+                            res.send({
                                 verified : true
                             });
                         }
