@@ -7,7 +7,7 @@ const nodemailer = require('nodemailer');
 let {Email,Password,encPwd} = require('../validate.js');
 
 
-let transporter = nodemailer.createTransport('smtp://donotreply%40code404.co.kr@localhost')
+let transporter = nodemailer.createTransport('smtp://localhost')
 
 let randomCode = [];
 for(var i=0;i<26;i++) {
