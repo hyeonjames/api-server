@@ -10,7 +10,10 @@ let {Email,Password,encPwd} = require('../validate.js');
 let transporter = nodemailer.createTransport({
     host : 'localhost',
     port : 25,
-    secure : false
+    secure : false,
+    tls : {
+        rejectUnauthorized: false
+    }
 })
 
 let randomCode = [];
